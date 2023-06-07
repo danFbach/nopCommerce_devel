@@ -1308,7 +1308,10 @@ namespace Nop.Services.Orders
             }
 
             //clear shopping cart
-            await Task.WhenAll(details.Cart.ToList().Select(sci => _shoppingCartService.DeleteShoppingCartItemAsync(sci, false)));
+            foreach (var sci in details.Cart.ToList())
+            {
+                await _shoppingCartService.DeleteShoppingCartItemAsync(sci, false);
+            }
         }
 
         /// <summary>
